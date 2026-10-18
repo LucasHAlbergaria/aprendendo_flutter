@@ -1,0 +1,374 @@
+================================================================================
+
+                        EXERCÍCIOS PRÁTICOS DE DART
+
+================================================================================
+
+
+
+--------------------------------------------------------------------------------
+
+PARTE 1 — VARIÁVEIS E TIPOS
+
+--------------------------------------------------------------------------------
+
+
+
+Exercício 1.1
+
+Declare variáveis para armazenar:
+
+- Seu nome (String)
+
+String nome = "Lucas";
+
+- Sua idade (int)
+Int idade = 20;
+
+- Sua altura em metros (double)
+
+var altura = 1.75;
+
+- Se está estudando Flutter (bool)
+
+var estudandoFlutter = true;
+
+Instruções: Use tipo explícito em pelo menos duas variáveis e 'var' nas outras. 
+
+Depois imprima uma frase usando interpolação, por exemplo: "Olá, [nome], você tem [idade] anos."
+
+print("Olá , $nome , você tem $idade anos")
+
+
+Exercício 1.2
+
+- Crie uma variável 'final' com o nome do seu app (ex.: "Meu App").
+
+final String MeuApp;
+
+- Crie uma constante 'const' com o valor 100 (limite máximo de algo).
+
+const int max = 100.
+
+- Justifique mentalmente: por que "final now = DateTime.now();" é válido e 
+
+  "const now = DateTime.now();" não é?
+
+final (Tempo de Execução / Runtime): O valor é atribuído quando o programa já está a rodar. Como DateTime.now() 
+precisa de consultar o relógio do sistema no exato momento em que a linha é executada, ele só pode ser conhecido em tempo de execução. 
+Por isso, final funciona.
+
+const (Tempo de Compilação / Compile-time): O valor precisa de ser conhecido antes de o programa rodar 
+(quando o código está a ser compilado/construído). Como o computador não tem como saber o horário exato
+em que o utilizador vai abrir a aplicação no futuro, DateTime.now() falha com const.
+
+
+
+Exercício 1.3
+
+Crie uma List<String> com pelo menos três nomes de frutas. Use 'add' para incluir 
+
+mais uma e imprima o 'length' e o segundo elemento (índice 1).
+
+void main() {
+  List<String> frutas = ['Maçã', 'Banana', 'Morango'];
+  frutas.add('Uva');
+  print(frutas.length);
+  print(frutas[1]);
+}
+
+
+Exercício 1.4
+
+Crie um Map<String, int> que represente notas de alunos (nome -> nota). 
+
+Adicione três entradas e depois:
+
+- Imprima a nota de um aluno específico.
+
+- Use o operador [] para um nome que não existe e veja o resultado (null).
+
+void main() {
+ 
+ Map<String , int> notas = {};
+  
+ notas['Lucas'] = 10;
+ notas['Maria'] = 9;
+ notas['João'] = 10;
+ print(notas['Lucas']);
+ print(notas['Jose']);
+
+  
+}
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+PARTE 2 — FUNÇÕES
+
+--------------------------------------------------------------------------------
+
+
+
+Exercício 2.1
+
+Escreva uma função 'ehPar(int n)' que retorne 'true' se n for par e 'false' caso contrário. 
+
+Use assinatura tipada e depois uma versão com arrow (=>).
+
+ bool ehpar(int numero)
+ {
+   
+   if(numero % 2 == 0)
+   {
+     
+     return true;
+     
+   }
+   
+   else
+   {
+     
+    return false;
+   }
+   
+ }
+
+bool ehParArrom(int n) => n % 2 == 0;  
+print(ehpar(20));
+  
+
+
+Exercício 2.2
+
+Escreva uma função 'saudacao(String nome, [String cumprimento = 'Olá'])' que imprima 
+"$cumprimento, $nome!". Chame a função com um argumento e depois com dois.
+
+void saudacao(String nome, [String cumprimento = 'Olá']) {
+  print('$cumprimento, $nome!');
+}
+
+void main() {
+  // Chamada 1: Com apenas 1 argumento (usa o valor padrão 'Olá')
+  saudacao('Lucas'); // Imprime: Olá, Lucas!
+
+  // Chamada 2: Com 2 argumentos (substitui 'Olá' por 'Bom dia')
+  saudacao('Lucas', 'Bom dia'); // Imprime: Bom dia, Lucas!
+}
+
+Exercício 2.3
+
+Crie uma função com parâmetros nomeados: 
+
+configurar({required String host, int port = 8080, bool debug = false})
+
+A função deve imprimir as três opções. Chame de três formas diferentes:
+
+1. Só host
+
+2. Host e port
+
+3. Host, port e debug
+
+void config({required String host, int port = 8080, bool debug = false}) {
+print('$host:$port (debug: $debug)');
+}
+config(host: 'localhost');
+config(host: 'api.com', port: 443);
+config(host: 'api.com', port: 443, debug: true);
+
+
+Exercício 2.4
+
+Implemente uma função 'maior(int a, int b)' que retorne o maior dos dois números. 
+
+Depois use essa função dentro de um 'print' para exibir o maior entre 10 e 20.
+
+void main() {
+ 
+int numeromaior(int a, int b)
+{
+  if( a > b){
+    
+    return a;
+    
+  }
+  
+  return b;
+ 
+}
+  
+ print(numeromaior(10,20));
+  
+}
+
+--------------------------------------------------------------------------------
+
+PARTE 3 — NULL SAFETY
+
+--------------------------------------------------------------------------------
+
+
+
+Exercício 3.1
+
+Declare uma variável 'String? nome' e atribua null. Depois atribua um nome. 
+
+Imprima o length de nome usando:
+
+- Verificação 'if (nome != null)'
+
+- Operador '?.' (acesso seguro)
+
+- Operador '??' para exibir "Anônimo" quando for null
+
+
+
+Exercício 3.2
+
+Crie uma função 'int? primeiroElemento(List<int> lista)' que retorne o primeiro 
+
+elemento da lista ou null se a lista estiver vazia. Teste com uma lista com 
+
+elementos e com uma lista vazia.
+
+
+
+Exercício 3.3
+
+Declare 'late String config'. Atribua um valor a 'config' numa função 'inicializar()' 
+
+e chame essa função antes de usar 'config' num print. 
+
+(Nota: Teste também sem chamar inicializar() para ver o erro em tempo de execução 
+
+e entender o comportamento do 'late').
+
+
+
+Exercício 3.4
+
+Dado um 'String? email', escreva uma única expressão que:
+
+- Retorne "E-mail não informado" se email for null ou vazio
+
+- Caso contrário, retorne o próprio email
+
+(Dica: use '??' e '.isEmpty')
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+PARTE 4 — CLASSES BÁSICAS
+
+--------------------------------------------------------------------------------
+
+
+
+Exercício 4.1
+
+Crie uma classe 'Pessoa' com os campos 'String nome' e 'int idade'. Use um construtor 
+
+com 'this.nome' e 'this.idade'. Adicione um método 'apresentar()' que imprima 
+
+"$nome, $idade anos". Instancie e chame o método 'apresentar()'.
+
+
+
+Exercício 4.2
+
+Crie uma classe 'ContaBancaria' com:
+
+- String titular
+
+- double saldo (inicializado no construtor, ex.: 0)
+
+- Método 'depositar(double valor)' que some ao saldo
+
+- Método 'sacar(double valor)' que subtraia do saldo (não precisa validar saldo negativo)
+
+Instancie, faça um depósito e um saque, e imprima o saldo.
+
+
+
+Exercício 4.3
+
+Na classe 'ContaBancaria' (ou numa nova), adicione um getter 'saldoFormatado' que 
+
+retorne o saldo como String formatada (ex.: "R$ 100,50"). Use o getter num print.
+
+
+
+Exercício 4.4
+
+Crie uma classe 'Produto' com:
+
+- String nome
+
+- double preco
+
+- Parâmetro opcional nomeado 'int? estoque'
+
+- Um construtor nomeado 'Produto.semEstoque(String nome, double preco)' que defina 
+
+  estoque como null
+
+Instancie um produto com estoque e outro com 'Produto.semEstoque(...)'.
+
+
+
+Exercício 4.5
+
+Crie uma classe 'Animal' com o método 'void emitirSom() => print('???');'. 
+
+Depois crie 'Cachorro extends Animal' com '@override void emitirSom() => print('Au au!');'. 
+
+Instancie um Cachorro e chame 'emitirSom()'.
+
+
+
+Exercício 4.6
+
+Crie uma classe 'Ponto' com 'final double x, y' e um construtor 'const Ponto(this.x, this.y)'. 
+
+Declare 'const origem = Ponto(0, 0);' e imprima 'origem.x' e 'origem.y'. 
+
+Explique por que não podemos fazer 'const p = Ponto(DateTime.now().day, 0);'.
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+PARTE 5 — INTEGRAÇÃO (OPCIONAL)
+
+--------------------------------------------------------------------------------
+
+
+
+Exercício 5.1
+
+Modele uma classe 'Aluno' com 'String nome', 'List<double> notas' e um getter 'media' 
+
+que calcule a média das notas (ou 0 se a lista estiver vazia). Crie um aluno com 
+
+três notas, imprima o nome e a média.
+
+
+
+Exercício 5.2
+
+Crie uma função 'String? maiorString(List<String> lista)' que retorne a string de 
+
+maior comprimento ou null se a lista for vazia. Use null safety e teste com uma 
+
+lista de palavras.
+
+================================================================================
